@@ -21,11 +21,12 @@ def ingresarManualmente( listaAlumnos, cadena, examen, materia, cursillo ):
                             nota = int( nota )
                         else:
                             nota = 0
-
-                        if listaAlumnos[ i ].cursillo == "Extensivo":
-                            archivoE.write( f"{listaAlumnos[ i ].cedula},{listaAlumnos[ i ].apellido},{listaAlumnos[ i ].nombre},{nota},\n" )
-                        elif listaAlumnos[ i ].cursillo == "Intensivo":
-                            archivoI.write( f"{listaAlumnos[ i ].cedula},{listaAlumnos[ i ].apellido},{listaAlumnos[ i ].nombre},{nota},\n" )
+                            
+                            if listaAlumnos[ i ].cursillo == "Extensivo":
+                                archivoE.write( f"{listaAlumnos[ i ].cedula},{listaAlumnos[ i ].apellido},{listaAlumnos[ i ].nombre},{nota},\n" )
+                            elif listaAlumnos[ i ].cursillo == "Intensivo":
+                                archivoI.write( f"{listaAlumnos[ i ].cedula},{listaAlumnos[ i ].apellido},{listaAlumnos[ i ].nombre},{nota},\n" )
+                            
 
                         archivo1.write( f"{listaAlumnos[ i ].cedula},{listaAlumnos[ i ].apellido},{listaAlumnos[ i ].nombre},{nota},\n" )
 def eliminacion( listaAlumnos, examen, materia ):
@@ -33,7 +34,7 @@ def eliminacion( listaAlumnos, examen, materia ):
         for i in range( len( listaAlumnos ) ):
             if( listaAlumnos[ i ].notas[ examen ][ materia ] < 36 ):
                 listaAlumnos[ i ].eliminado = True
-                
+
 
 def leerArchivo( listaAlumnos ):
     """Lee el nombre del archivo para identificar el examen"""
@@ -63,7 +64,7 @@ def leerArchivo( listaAlumnos ):
                             eliminacion( listaAlumnos, examen, materia )
                         elif opcion == "q":
                             return
-                        
+
 def nota_total( alumno ):
     return not( alumno.eliminado ),alumno.nota_total, nota_materia( alumno, 0 ), nota_materia( alumno, 4), nota_materia( alumno, 1 ), nota_materia( alumno, 2 ), nota_materia( alumno, 3 )
 
@@ -71,7 +72,7 @@ def nota_materia( alumno, indice ):
     total = 0
     for i in range( len( alumno.notas ) ):
         total = total + alumno.notas[ i ][ indice ]
-    return total
+        return total
 
 def Apellido( alumno ):
     return alumno.apellido, alumno.nombre
@@ -88,11 +89,12 @@ def guardarDatos( listaAlumnos, cadena, examen, materia, cursillo ):
             else:
                 alumno.cargar_nota( examen, materia, datos[ 3 ] )
                 listaAlumnos.append( alumno )
-             
+
 def imprimeNota( alumno, tope ):
     notas = ""
     for i in range( tope ):
         for j in range( len( alumno.notas[ i ] ) ):
+            
             notas = notas + f"{alumno.notas[ i ][ j ]},"
     return notas
 
